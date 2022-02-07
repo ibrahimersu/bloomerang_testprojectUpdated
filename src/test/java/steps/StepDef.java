@@ -1,6 +1,7 @@
 package steps;
 
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,60 +21,59 @@ public class StepDef {
 
     }
 
-    @Given("I enter my first name")
-    public void i_enter_my_first_name() {
-      submitPage.setFirstnameElm();
-
+    @Given("I enter my first name {string}")
+    public void i_enter_my_first_name(String name) {
+      submitPage.setFirstname(name);
     }
 
-    @Given("I enter my last name")
-    public void i_enter_my_last_name() {
-        submitPage.lastname();
+    @Given("I enter my last name {string}")
+    public void i_enter_my_last_name(String lastName) {
+        submitPage.lastname(lastName);
     }
 
-    @Given("I enter my email address")
-    public void i_enter_my_email_address() {
-       submitPage.setEmail();
+    @Given("I enter my email address {string}")
+    public void i_enter_my_email_address(String email) {
+       submitPage.setEmail(email);
     }
 
-    @Given("I enter a phone number")
-    public void i_enter_a_phone_number() {
-        submitPage.setPhone();
+    @Given("I enter my phone number {string}")
+    public void i_enter_a_phone_number(String phone) {
+        submitPage.setPhone(phone);
     }
 
-    @Given("I re-enter my phone number without country code")
-    public void i_re_enter_my_phone_number_without_country_code() {
-       submitPage.setPhone();
+    @Given("I re-enter my phone number without country code {string}")
+    public void i_re_enter_my_phone_number_without_country_code(String phoneNoCode) {
+       submitPage.setPhone(phoneNoCode);
     }
 
-    @Given("I did not touch country name")
-    public void i_did_not_touch_country_name() {
-        submitPage.setCountry();
+    @Given("I enter my city name {string}")
+    public void i_did_not_touch_country_name(String city ) {
+        submitPage.setCity(city);
     }
 
-    @Given("I enter my home address")
-    public void i_enter_my_home_address() {
-      submitPage.streetAddress();
+    @Given("I enter my home address {string}")
+    public void i_enter_my_home_address(String address) {
+      submitPage.streetAddress(address);
     }
 
-    @Given("I enter my state in USA")
-    public void i_enter_my_state_in_usa() {
-    submitPage.setCountry();
+    @Given("I enter my state in USA {string}")
+    public void i_enter_my_state_in_usa(String state) {
+    submitPage.setCountry(state);
     }
 
-    @Given("I enter zip code of my home address")
-    public void i_enter_zip_code_of_my_home_address() {
-       submitPage.setZipcode();
+    @Given("I enter zip code of my home address {string}")
+    public void i_enter_zip_code_of_my_home_address(String zip) {
+       submitPage.setZipcode(zip);
     }
 
-    @Given("I choose  today’s date")
-    public void i_choose_today_s_date() {
-       submitPage.setVolunteerDate();
+    @Given("I choose date {string}")
+    public void i_choose_date(String date) {
+       submitPage.setVolunteerDate(date);
     }
 
-    @Given("I write comments about volunteering topic")
-    public void i_write_comments_about_volunteering_topic() {
-      submitPage.setVolunteerDate();
+    @Given("I write comments")
+    public void i_write_comments_about_volunteering_date() {
+      submitPage.setComment();
     }
 
     @When("I enter the Submit button")
@@ -81,24 +81,21 @@ public class StepDef {
        submitPage.setSubmitButton();
     }
 
-    @Then("I am able to see “ thank you for volunteering message” in the page.")
-    public void i_am_able_to_see_thank_you_for_volunteering_message_in_the_page() {
-        submitPage.setSubmitButton();
-    }
 
     @When("I press the Submit button")
     public void i_press_the_submit_button() {
      submitPage.setSubmitButton();
     }
 
-    @Then("I am able to see “ thank you for volunteering message” in the landing page")
-    public void i_am_able_to_see_thank_you_for_volunteering_message_in_the_landing_page() {
-       String message = "Thank you for volunteering!";
-       String expectedResult= submitPage.setMessage();
-        Assert.assertEquals(expectedResult,message);
+    @Then("I am able to see {string} in the page.")
+    public void iAmAbleToSeeInThePage(String message) {
+        String actualResult= submitPage.getMessage();
+        Assert.assertEquals(message,actualResult);
     }
 
-
-
-
+    @Then("I am able to see {string} error message in the page.")
+    public void iAmAbleToSeeErrorMessageInThePage(String message ) {
+        String actualResult = submitPage.getErrorMessage();
+        Assert.assertEquals(message,actualResult);
+    }
 }

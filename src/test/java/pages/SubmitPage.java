@@ -15,7 +15,7 @@ public class SubmitPage {
     @FindBy(id = "last-name")
     private WebElement lastnameElm;
     @FindBy(id = "email-address")
-    private WebElement email;
+    private WebElement emailElm;
     @FindBy(id = "phone-number")
     private WebElement phone;
     @FindBy(id = "country")
@@ -37,6 +37,9 @@ public class SubmitPage {
     @FindBy(xpath = "//h2[normalize-space()='Thank you for volunteering!']")
     private WebElement message;
 
+    @FindBy(xpath = "//label[normalize-space()='This field is required.']")
+    private WebElement errorMessage;
+
     public SubmitPage() {
 
         PageFactory.initElements(Driver.getDriver(), this);
@@ -49,50 +52,48 @@ public class SubmitPage {
 
     }
 
-    public void setFirstnameElm() {
-        firstnameElm.sendKeys("merweska");
+    public void setFirstname(String name) {
+        firstnameElm.sendKeys(name);
 
 
     }
 
-    public void lastname() {
-        lastnameElm.sendKeys("lion");
+    public void lastname(String lastName) {
+        lastnameElm.sendKeys(lastName);
     }
 
-    public void setEmail() {
-        email.sendKeys("merweska11@gmail.com");
+    public void setEmail(String email) {
+        emailElm.sendKeys(email);
     }
 
-    public void setPhone() {
-        phone.sendKeys("9087771122");
+    public void setPhone(String phoneNumber) {
+        phone.sendKeys(phoneNumber);
     }
 
-    public void setCountry() {
-        Select select = new Select(country);
-
-        select.deselectByValue("US");
+    public void setCountry(String stateName) {
+        state.sendKeys(stateName);
 
     }
 
-    public void streetAddress() {
-        address.sendKeys("123 Hooper");
+    public void streetAddress(String fullAddress) {
+        address.sendKeys(fullAddress);
     }
 
-    public void setCity() {
-        city.sendKeys("New York");
+    public void setCity(String cityName) {
+        city.sendKeys(cityName);
     }
 
-    public void state() {
+    public void state(String stateName) {
         Select select = new Select(state);
-        select.deselectByValue("NY");
+        select.deselectByValue(stateName);
     }
 
-    public void setZipcode() {
-        zipcode.sendKeys("10008");
+    public void setZipcode(String zipCodes) {
+        zipcode.sendKeys(zipCodes);
     }
 
-    public void setVolunteerDate() {
-        volunteerDate.click();
+    public void setVolunteerDate(String date) {
+        volunteerDate.sendKeys(date);
     }
 
     public void setComment() {
@@ -103,9 +104,11 @@ public class SubmitPage {
         submit.submit();
     }
 
-    public String setMessage() {
-       message.getText();
-        return null;
+    public String getMessage() {
+        return message.getText();
+    }
+    public String getErrorMessage() {
+        return errorMessage.getText();
     }
 }
 
